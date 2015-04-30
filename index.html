@@ -8,6 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <style>
+        span, p, div, h2, h3, h4, h5, h6, blockquote { font-size: 1.0em !important; }
+        h1 { font-size: 1.5em !important; margin: 0px !important; }
         .margin5px { margin-left: 5px; margin-right: 5px; margin-top: 10px; }
         .buttonMarginFloat { margin-right: 5px; margin-top: 10px; float: left; }
         .nounImput { color: #0094ff; font-weight: bold; }
@@ -17,22 +19,33 @@
     <div class="margin5px">
         <div ng-app="appSayThreeNiceThings">
             <div ng-controller="controllerSayThreeNiceThings">
-                <div class="alert alert-info">
+                <div class="alert alert-info" ng-click="showMenu()">
                     <h1>Say Three Nice Things</h1>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <input class="form-control input-lg" id="nounInput" value=""
-                                placeholder="Type Here"
-                                ng-enter="getPhraseTemplate(phraseGroupName)" />
-                            <span ng-repeat="a in phraseGroup">
-                                <a href="#" id="btn{{a.PhraseName}}" class="btn btn-default btn-sm buttonMarginFloat" ng-click="getPhraseTemplate(a.PhraseName)">{{a.PhraseName}}</a>
-                            </span>
+                <div ng-show="(showMenuFlag)" id="MenuPanel">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <a href="#" id="UpdateContent" class="btn btn-default btn-md" ng-click="downLoadData('1')">Update Content</a>
+                                <a href="#" id="A1" class="btn btn-default btn-md" ng-click="showMenu()">Close</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
+                <div ng-show="(!showMenuFlag)" id="MainPanel">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="nounInput" value=""
+                                    placeholder="Type Here"
+                                    ng-enter="getPhraseTemplate(phraseGroupName)" />
+                                <span ng-repeat="a in phraseGroup">
+                                    <a href="#" id="btn{{a.PhraseName}}" class="btn btn-default btn-sm buttonMarginFloat" ng-click="getPhraseTemplate(a.PhraseName)">{{a.PhraseName}}</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="panelPhrases" class="panel panel-default">
                     <div class="panel-body">
@@ -52,5 +65,74 @@
         </div>
     </div>
 </body>
-<script> var myApp=angular.module('appSayThreeNiceThings',[]);myApp.controller('controllerSayThreeNiceThings',['$scope','$sce',function($scope,$sce){$scope.phraseGroup=[{"PhraseName":"Generic","Phrase":["{0} is astounding","{0} is bedazzling","{0} is brilliant","{0} is breathtaking","{0} is classy","{0} is compelling","{0} is dazzling","{0} is eclipsing","{0} is elite","{0} is enriching","{0} is epic","{0} is flawless","{0} is first-rate","{0} is gripping","{0} is ground-breaking","{0} is gut-wrenching","{0} is headline-worthy","{0} is iconic","{0} is impeccable","{0} is insightful","{0} is inspired","{0} is kick-ass","{0} is laudable","{0} is legendary","{0} is luminous","{0} is masterful","{0} is notable","{0} is pioneering","{0} is pitch-perfect","{0} is pivotal","{0} is prime","{0} is provocative","{0} is refined","{0} is rich","{0} is riveting","{0} is sensational","{0} is stellar","{0} is to die for","{0} is trailblazing","{0} is thought-provoking","{0} is touching","{0} is transcendent","{0} is unforgettable","{0} is vibrant","{0} is world class","Astounding {0} is ","Bedazzling {0} is ","Brilliant {0} is ","Breathtaking {0} is ","Classy {0} is ","Compelling {0} is ","Dazzling {0} is ","Eclipsing {0} is ","Elite {0} is ","Enriching {0} is ","Epic {0} is ","Flawless {0} is ","First-Rate {0} is ","Gripping {0} is ","Ground-Breaking {0} is ","Gut-Wrenching {0} is ","Headline-Worthy {0} is ","Iconic {0} is ","Impeccable {0} is ","Insightful {0} is ","Inspired {0} is ","Kick-Ass {0} is ","Laudable {0} is ","Legendary {0} is ","Luminous {0} is ","Masterful {0} is ","Notable {0} is ","Pioneering {0} is ","Pitch-Perfect {0} is ","Pivotal {0} is ","Prime {0} is ","Provocative {0} is ","Refined {0} is ","Rich {0} is ","Riveting {0} is ","Sensational {0} is ","Stellar {0} is ","To Die For {0} is ","Trailblazing {0} is ","Thought-Provoking {0} is ","Touching {0} is ","Transcendent {0} is ","Unforgettable {0} is ","Vibrant {0} is ","World Class {0} is"]},{"PhraseName":"Compliments","Phrase":["{0} has very smooth hair.","{0} deserves a promotion.","Good effort, {0}!","What a fine sweater, {0}!","I appreciate all of {0}'s opinions.","I like {0}'s style.","{0}'s T-shirt smells fresh.","I love what {0} has done with the place.","{0} is like a spring flower; beautiful and vivacious.","I am utterly disarmed by {0}'s wit.","{0} really enjoys the way {0} pronounce {0}.","You complete me {0}.","Well done {0}!","{0} looks nice on you.","I like those {0}'s shoes more than mine.","Nice motor control {0}!","{0} has a good taste in websites.","{0}'s mouse told me that {0} has very soft hands.","{0} is full of youth.","I like {0}'s jacket.","I like the way {0} moves.","{0} has a good web-surfing stance.","{0} is a poster child for poster {0} children.","Nice manners {0}!","I appreciate {0} more than Santa appreciates chimney grease.","I wish I was {0}'s mirror.","I find {0} to be a fountain of inspiration.","{0} has perfect bone structure.","I disagree with anyone who disagrees with {0}.","Way to go {0}!","Have you been working out {0}?","With {0}'s creative wit, I'm sure {0} could come up with better compliments than me.","I like {0}'s socks.","{0} is so charming.","{0}'s cooking reminds me of my mother's.","{0} tremendous {0}!","{0} deserves a compliment!","Hello, good looking {0}.","{0}'s smile is breath taking.","How do you get {0}'s hair to look that great?","{0} is quite strapping.","I am grateful to be blessed by {0}'s presence.","Say, aren't you that famous {0} model from TV?","{0} takes a break because {0} has earned it.","{0}'s life is so interesting!","The sound of {0}'s voice sends tingles of joy down my back.","I enjoy spending time with {0}.","I would share my dessert with {0}.","You can have the last bite of {0}.","May {0} have this dance?","I would love to visit {0}, but I live on the Internet.","I love the way you click {0}!","I invited my best friend {0} to my birthday party.","All of {0}'s ideas are brilliant!","If I freeze, it's not a computer virus. I was just stunned by {0}'s beauty.","{0} is spontaneous, and I love it!","{0} likes to try out for everything.","You make my {0} data circuits skip a beat.","{0} is the gravy to my mashed potatoes.","You get an A+ {0}!","I'm jealous of the other websites you visit, because I enjoy seeing you so much {0}!","I would enjoy a road-trip with {0}.","If I had to choose between {0} or Mr. Rogers, it would be {0}.","I like {0} more than the smell of Grandma's home-made apple pies.","You would look good in {0} glasses.","Let's do this again sometime {0}.","{0} can go longer without a shower than most {0}.","I feel the need to impress {0}.","I would trust {0} to pick out a pet fish for me.","I'm glad we met {0}.","Do that again {0}!","Will you sign my yearbook?","{0} so smart {0}!","We should start a band.","{0} cooler than ice-skating Fonzi.","I made this website for {0}.","I heard {0} makes really good French Toast.","{0} is cooler than Pirates and Ninjas combined.","Oh, {0} can keep going.","I like {0}'s pants.","{0} pretty groovy, dude.","When I grow up, I want to be just like {0}.","I told all my friends about how cool you are.","You can play any prank, and get away with it.","{0} has ten of the best fingers I have ever seen {0}!","I can tell that we are gonna be friends.","I just want to gobble you up {0}!","{0} sweeter than than a bucket of bon-bons {0}!","Treat {0}'sself to another compliment {0}!","{0} pretty high on my list of people with whom I would want to be stranded on an island.","{0} #1 in my book {0}!","Well played {0}.","{0} is well groomed.","{0} could probably lead a rebellion.","Is it hot in here or is it just {0}?","{0} is more fun than a Japanese steakhouse.","{0}'s voice is more soothing than Morgan Freeman's.","I like {0}'s sleeves. They're real big.","{0} could be drinking whole milk if you wanted to.","{0} is beautiful, {0} makes me walk into things when I look at {0}.","I support all of {0}'s decisions.","{0} is as fun as a hot tub full of chocolate pudding.","I usually don't say this on a first date, but I would marry a {0}?","I don't speak much English, but with {0} all I really need to say is beautiful.","Being awesome is hard, but {0} will manage.","{0}'s skin is radiant.","{0} will still be beautiful when {0} gets older.","{0} could survive a zombie apocalypse.","I wish I could move {0}'s furniture.","{0} so rad, rock on {0}.","{0} is more fun than a barrel of monkeys.","{0} is nicer than a day on the beach.","{0}'s glass is the fullest.","I find {0} very relevant.","{0} looks so perfect.","The only difference between exceptional and amazing is {0}.","Last night I had the hiccups, and the only thing that comforted me to sleep was repeating {0}'s name over and over.","I like {0}'s pearly whites {0}!","{0}'s eyebrows really make {0}'s pretty eyes stand out.","Shall I compare {0} to a summer's day?.","I love you more than bacon {0}!","{0} intrigues me.","{0} makes me think of beautiful things, like {0} flavoured strawberries.","I would share my fruit Gushers with {0}.","{0} is more aesthetically pleasant than that blue screen of death.","Even though this goes against everything I know, I think I'm in love with {0}.","{0} more fun than bubble wrap.","{0}'s smile could illuminate the depths of the ocean.","{0} makes babies smile.","{0} makes gloomy days a little less gloomy.","{0} is warmer than a Snuggie.","{0} makes me feel like I am on top of the world.","Playing video games with {0} would be fun.","Let's never stop hanging out {0}.","{0} is more cuddly than the Downy Bear.","I would do {0}'s taxes any day.","{0} is a bucket of awesome.","{0} is the star of my daydreams.","If you really wanted to, {0} could probably get a bird to land on {0}'s shoulder and hang out with you.","My mom always asks me why I can't be more like {0}.","{0} looks great in this or any other light.","{0} listens to the coolest music.","{0} and Chuck Norris are on equal levels.","{0}'s body fat percentage is perfectly suited for {0}'s height.","I am having trouble coming up with a compliment worthy enough for {0}.","If we were playing kickball, I'd pick {0} first.","{0} is cooler than ice on the rocks.","{0} is the bee's knees.","I wish I could choose {0}'s handwriting as a font.","You definitely know the difference between {0}'s and you're.","{0} has good taste.","I named all my appliances after {0}.","{0}'s mind is a maze of amazing {0}!","Don't worry about procrastinating on {0}'s studies, I know you'll do great {0}!","I like {0}'s style!","I'd like to know why {0} is so beautiful, seriously.","If I could count the seconds I think about you, I will die in the process {0}!","If {0} were in a chemistry class with me, it would be 10x less boring.","If you broke {0}'s arm, I would carry {0}'s books for {0}.","I love the way {0}'s eyes crinkle at the corners when you smile.","{0} makes me want to be the person I am capable of being.","{0} is a skilled driver.","{0} is the rare catalyst to my volatile compound.","{0} a tall glass of water {0}!","I'd like to kiss {0}. Often!!!","{0} is the wind beneath my wings.","Looking at {0} makes my foot cramps go away instantaneously.","I like {0}'s face.","{0} is a champ {0}!","{0} is infatuating.","Even my cat likes {0}.","There isn't a thing about {0} that I don't like.","{0} is so cool, that on a scale of from 1-10, {0} is an eleven'dy-seven.","OH, {0} owns that ponytail.","{0}'s shoes are untied. But for you, it's cool.","{0} has the best laugh ever.","We would enjoy a cookout with you {0}!","{0}'s name is fun to say.","I love {0} more than a drunk college student loves tacos.","My camera isn't worthy to take {0}'s picture.","{0} is the sugar on my rice krispies.","Nice belt {0}!","I could hang out with {0} for a solid year and never get tired of {0}.","{0} is real happening in a far out way.","I bet {0} could take a punch from Mike Tyson.","{0}'s feet are perfect size {0}!","{0} has very nice teeth.","Can {0} teach me how to be as awesome as you?","{0} awkward silence isn't that awkward.","Don't worry. {0} will do great.","I enjoy you more than a good sneeze. A GOOD one.","{0} could invent words and people would use them.","{0} has powerful sweaters.","If you were around, I would enjoy doing my taxes.","{0} looks like you like to rock.","{0} is better than unicorns and sparkles combined {0}!","{0} is the watermelon in my fruit salad. Yum {0}!","I dig {0}.","{0} looks better whether the lights are on or off.","I am enchanted to meet {0}.","I bet even {0}'s farts smell good.","I would trust my children with {0}.","{0} makes me forget what I was going to...","{0}'s smile makes me smile.","I'd wake up for an 8 a.m. class just so I could sit next to {0}.","{0} has moves like Jagger.","{0} is soooooo hot that you denature my proteins.","All I want for Christmas is you {0}!","{0} is the world's greatest hugger.","{0} has a perfectly symmetrical face.","{0}'s red ruby lips and wiggly hips make me do flips {0}!","They should name an ice cream flavor after {0}.","{0} the salsa to my tortilla chips. You spice up my life {0}!","You smell nice {0}.","You don't need make-up, make-up needs {0}.","Me without {0} is like a nerd without braces, a shoe with out laces, asentencewithoutspaces.","Just knowing someone as cool as {0} makes me smile.","I would volunteer to take {0}'s place in the Hunger Games.","If I had a nickel for everytime you did something stupid, I'd be broke {0}!","I'd let {0} steal the white part of my Oreo.","I'd trust {0} to perform open heart surgery on me... blindfolded!","Perfume strives to smell like {0}.","I've had the time of my life, and I owe it all to you {0}!","The Force is strong with {0}.","I like the way {0}'s nostrils are placed on {0}'s nose.","I would hold the elevator doors open for {0} if they were closing.","{0}'s every thought and motion contributes to the beauty of the universe.","{0} makes me want to frolic in a field."]}];$scope.showPanel=function(){return($scope.phrase1.length>0);};$scope.phrase1="";$scope.phrase2="";$scope.phrase3="";$scope.phraseGroupName="Generic";$scope.getRandomNumberIndexsUsed=[];$scope.phraseData=[];$scope.getRandomNumber=function(){if($scope.getRandomNumberIndexsUsed.length>$scope.phraseData.length-3){$scope.getRandomNumberIndexsUsed=[];} for(var j=0;j<100;j++){var i=Math.floor((Math.random()*($scope.phraseData.length)));if($scope.getRandomNumberIndexsUsed.indexOf(i)==-1){$scope.getRandomNumberIndexsUsed.push(i);return i;}} return 0;};$scope.getPhraseTemplate=function(e){$scope.phraseGroupName=e;$("[id*='btn']").removeClass("btn-info").addClass("btn-default");$("#btn"+$scope.phraseGroupName).addClass("btn-info");$scope.phraseData=$.grep($scope.phraseGroup,function(n,i){return(n.PhraseName==e);});if($scope.phraseData.length==0||$("#nounInput").val()==""){$("#panelPhrases").hide();return;} $scope.phraseData=$scope.phraseData[0].Phrase;$scope.phrase1=$sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>").replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>").replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>"));$scope.phrase2=$sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>").replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>").replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>"));$scope.phrase3=$sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>").replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>").replace("{0}","<span class='nounImput'>"+$("#nounInput").val()+"</span>"));$("#panelPhrases").show();};$scope.initLoad=function(){if($scope.phrase1==""||$("#nounInput").val()==""){$("#panelPhrases").hide();}};$scope.initLoad();}]);myApp.directive('ngEnter',function(){return function(scope,element,attrs){element.bind("keydown keypress",function(event){if(event.which===13){scope.$apply(function(){scope.$eval(attrs.ngEnter);});event.preventDefault();}});};}); </script>
+<script>
+    var myApp = angular.module('appSayThreeNiceThings', []);
+    myApp.controller('controllerSayThreeNiceThings', ['$scope', '$sce', '$http', function ($scope, $sce, $http) {
+
+        $scope.showMenu = function () {
+            $scope.showMenuFlag = !$scope.showMenuFlag;
+
+        }
+        $scope.phraseGroup = [];
+        $scope.showMenuFlag = false;
+        $scope.phrase1 = "";
+        $scope.phrase2 = "";
+        $scope.phrase3 = "";
+        $scope.phraseGroupName = "Generic";
+        $scope.getRandomNumberIndexsUsed = [];
+        $scope.phraseData = [];
+        $scope.getRandomNumber = function () { if ($scope.getRandomNumberIndexsUsed.length > $scope.phraseData.length - 3) { $scope.getRandomNumberIndexsUsed = []; } for (var j = 0; j < 100; j++) { var i = Math.floor((Math.random() * ($scope.phraseData.length))); if ($scope.getRandomNumberIndexsUsed.indexOf(i) == -1) { $scope.getRandomNumberIndexsUsed.push(i); return i; } } return 0; };
+
+        $scope.downLoadData = function (e) {
+            if (e == "0" && localStorage.getItem('STNTDATA') !== null) {
+                $scope.phraseGroup = $.parseJSON(localStorage.getItem('STNTDATA'));
+                $scope.showMenuFlag = false;
+            }
+            else {
+                $http({ url: "http://zandersage.com/saythreenicethingsservice.aspx", method: "GET", params: { id: e } }).success(function (response) {
+                    if (response === undefined || response.length === 0) { alert('Data Download Failed'); $scope.showMenuFlag = false; }
+                    else {
+                        localStorage.removeItem('STNTDATA');
+                        localStorage.setItem('STNTDATA', JSON.stringify(response));
+                        $scope.phraseGroup = $.parseJSON(localStorage.getItem('STNTDATA'));
+                        $scope.showMenuFlag = false;
+                    }
+                }).error(function () {
+                    alert('Data Download Failed'); $scope.showMenuFlag = false;
+                });
+            }
+            if ($scope.phrase1 == "" || $("#nounInput").val() == "") {
+                $("#panelPhrases").hide();
+            }
+
+            
+        };
+
+
+
+
+
+
+        $scope.getPhraseTemplate = function (e) {
+            $scope.phraseGroupName = e;
+            $("[id*='btn']").removeClass("btn-info").addClass("btn-default");
+
+            $("#btn" + $scope.phraseGroupName).addClass("btn-info");
+            $scope.phraseData = $.grep($scope.phraseGroup, function (n, i) { return (n.PhraseName == e); });
+            if ($scope.phraseData.length == 0 || $("#nounInput").val() == "") { $("#panelPhrases").hide(); return; }
+            $scope.phraseData = $scope.phraseData[0].Phrase;
+            $scope.phrase1 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
+            $scope.phrase2 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
+            $scope.phrase3 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
+            $("#panelPhrases").show();
+            $("#btn" + $scope.phraseGroupName).focus();
+        };
+
+        $scope.downLoadData("0");
+
+    }
+    ]);
+    myApp.directive('ngEnter', function () { return function (scope, element, attrs) { element.bind("keydown keypress", function (event) { if (event.which === 13) { scope.$apply(function () { scope.$eval(attrs.ngEnter); }); event.preventDefault(); } }); }; });
+
+</script>
 </html>
