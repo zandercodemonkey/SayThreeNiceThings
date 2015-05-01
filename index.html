@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Say Three Nice Things</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <style>
+        span, p, div, h2, h3, h4, h5, h6, blockquote { font-size: 1.0em !important; }
+        h1 { font-size: 1.5em !important; margin: 0px !important; }
+        .margin5px { margin-left: 5px; margin-right: 5px; margin-top: 10px; }
+        .buttonMarginFloat { margin-right: 5px; margin-top: 10px; float: left; }
+        .nounImput { color: #0094ff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="margin5px">
+        <div ng-app="appSayThreeNiceThings">
+            <div ng-controller="controllerSayThreeNiceThings">
+                <div class="alert alert-info" ng-click="showMenu()">
+                    <h1>Say Three Nice Things</h1>
+                </div>
+                <div ng-show="(showMenuFlag)" id="MenuPanel">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <a href="#" id="UpdateContent" class="btn btn-default btn-md" ng-click="downLoadData('1')">Update Content</a>
+                                <a href="#" id="A1" class="btn btn-default btn-md" ng-click="showMenu()">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="(!showMenuFlag)" id="MainPanel">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="nounInput" value=""
+                                    placeholder="Type Here"
+                                    ng-enter="getPhraseTemplate(phraseGroupName)" />
+                                <span ng-repeat="a in phraseGroup">
+                                    <a href="#" id="btn{{a.PhraseName}}" class="btn btn-default btn-sm buttonMarginFloat" ng-click="getPhraseTemplate(a.PhraseName)">{{a.PhraseName}}</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panelPhrases" class="panel panel-default">
+                    <div class="panel-body">
+                        <blockquote>
+                            <div ng-bind-html="phrase1"></div>
+                        </blockquote>
+                        <blockquote>
+                            <div ng-bind-html="phrase2"></div>
+                        </blockquote>
+                        <blockquote>
+                            <div ng-bind-html="phrase3"></div>
+                        </blockquote>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var myApp = angular.module('appSayThreeNiceThings', []);
+    myApp.controller('controllerSayThreeNiceThings', ['$scope', '$sce', '$http', function ($scope, $sce, $http) {
+
+        $scope.showMenu = function () {
+            $scope.showMenuFlag = !$scope.showMenuFlag;
+
+        }
+        $scope.phraseGroup = [];
+        $scope.showMenuFlag = false;
+        $scope.phrase1 = "";
+        $scope.phrase2 = "";
+        $scope.phrase3 = "";
+        $scope.phraseGroupName = "Generic";
+        $scope.getRandomNumberIndexsUsed = [];
+        $scope.phraseData = [];
+        $scope.getRandomNumber = function () { if ($scope.getRandomNumberIndexsUsed.length > $scope.phraseData.length - 3) { $scope.getRandomNumberIndexsUsed = []; } for (var j = 0; j < 100; j++) { var i = Math.floor((Math.random() * ($scope.phraseData.length))); if ($scope.getRandomNumberIndexsUsed.indexOf(i) == -1) { $scope.getRandomNumberIndexsUsed.push(i); return i; } } return 0; };
+
+        $scope.downLoadData = function (e) {
+            if (e == "0" && localStorage.getItem('STNTDATA') !== null) {
+                $scope.phraseGroup = $.parseJSON(localStorage.getItem('STNTDATA'));
+                $scope.showMenuFlag = false;
+            }
+            else {
+                $http({ url: "http://zandersage.com/saythreenicethingsservice.aspx", method: "GET", params: { id: e } }).success(function (response) {
+                    if (response === undefined || response.length === 0) { alert('Data Download Failed'); $scope.showMenuFlag = false; }
+                    else {
+                        localStorage.removeItem('STNTDATA');
+                        localStorage.setItem('STNTDATA', JSON.stringify(response));
+                        $scope.phraseGroup = $.parseJSON(localStorage.getItem('STNTDATA'));
+                        $scope.showMenuFlag = false;
+                    }
+                }).error(function () {
+                    alert('Data Download Failed'); $scope.showMenuFlag = false;
+                });
+            }
+            if ($scope.phrase1 == "" || $("#nounInput").val() == "") {
+                $("#panelPhrases").hide();
+            }
+
+            
+        };
+
+
+
+
+
+
+        $scope.getPhraseTemplate = function (e) {
+            $scope.phraseGroupName = e;
+            $("[id*='btn']").removeClass("btn-info").addClass("btn-default");
+
+            $("#btn" + $scope.phraseGroupName).addClass("btn-info");
+            $scope.phraseData = $.grep($scope.phraseGroup, function (n, i) { return (n.PhraseName == e); });
+            if ($scope.phraseData.length == 0 || $("#nounInput").val() == "") { $("#panelPhrases").hide(); return; }
+            $scope.phraseData = $scope.phraseData[0].Phrase;
+            $scope.phrase1 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
+            $scope.phrase2 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
+            $scope.phrase3 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
+            $("#panelPhrases").show();
+            $("#btn" + $scope.phraseGroupName).focus();
+        };
+
+        $scope.downLoadData("0");
+
+    }
+    ]);
+    myApp.directive('ngEnter', function () { return function (scope, element, attrs) { element.bind("keydown keypress", function (event) { if (event.which === 13) { scope.$apply(function () { scope.$eval(attrs.ngEnter); }); event.preventDefault(); } }); }; });
+
+</script>
+</html>
