@@ -1,160 +1,99 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Say Three Nice Things</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <style>
-        span, p, div, h2, h3, h4, h5, h6, blockquote {font-size: 1.05em !important; }
-        h1 { font-size: 1.5em !important; margin: 0px !important; }
-        .margin5px { margin-left: 5px; margin-right: 5px; margin-top: 10px; }
-        .buttonMarginFloat { margin-right: 5px; margin-top: 10px; float: left; }
-        .nounImput { color: #0094ff; font-weight: bold; }
-		    .glyphicon-refresh-animate { -animation: spin 1s infinite linear; -webkit-animation: spin2 1s infinite linear; }
-		    @-webkit-keyframes spin2 {from { -webkit-transform: rotate(0deg); }	to { -webkit-transform: rotate(360deg); }
-		    @keyframes spin {from { transform: scale(1) rotate(0deg); }	to { transform: scale(1) rotate(360deg); }}
-    </style>
+  <title>Say Three Nice Things</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <style>
+    span, p, div, h2, h3, h4, h5, h6, blockquote { font-size: 1.05em !important; }
+    h1 { font-size: 1.5em !important; margin: 0px !important; }
+    .margin5px { margin-left: 5px; margin-right: 5px; margin-top: 10px; margin-bottom: 5px; }
+    .buttonMarginFloat { margin-right: 5px; margin-top: 10px; float: left; }
+    .nounInput { color: #0094ff; font-weight: bold; font-size: 1.05em; }
+    .width100 { width: 100px !important; }
+  </style>
 </head>
 <body>
-    <div class="margin5px">
-        <div ng-app="appSayThreeNiceThings">
-            <div ng-controller="controllerSayThreeNiceThings">
-                <div class="alert alert-info" ng-click="showMenu()">
-                    <h1>Say Three Nice Things</h1>
-                </div>
-                <div ng-show="(showMenuFlag)" id="MenuPanel">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="form-group">
-<div id="DownLoadingSpan" style="display: none;">
-<span class="glyphicon glyphicon-refresh glyphicon-refresh glyphicon-refresh-animate"></span>
-Loading...
-</div>
-                              <div id="Div1"  ng-show="(showMenuFlag)">
-                                <a href="#" id="UpdateContent" class="btn btn-default btn-md" ng-click="downLoadData('1')">Update Content</a>
-                                <a href="#" id="A1" class="btn btn-default btn-md" ng-click="showMenu()">Close</a>
-                            </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div ng-show="(!showMenuFlag)" id="MainPanel">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <input class="form-control input-lg" id="nounInput" value=""
-                                    placeholder="Type Here"
-                                    ng-enter="getPhraseTemplate(phraseGroupName)" />
-                                <span ng-repeat="a in phraseGroup">
-                                    <a href="#" id="btn{{a.PhraseName}}" class="btn btn-default btn-sm buttonMarginFloat" ng-click="getPhraseTemplate(a.PhraseName)">{{a.PhraseName}}</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div  ng-show="(!showMenuFlag)"  id="panelPhrases" class="panel panel-default">
-                    <div class="panel-body">
-                        <blockquote>
-                            <div ng-bind-html="phrase1"></div>
-                        </blockquote>
-                        <blockquote>
-                            <div ng-bind-html="phrase2"></div>
-                        </blockquote>
-                        <blockquote>
-                            <div ng-bind-html="phrase3"></div>
-                        </blockquote>
-                    </div>
-                </div>
-
-            </div>
+  <div class="margin5px">
+    <div ng-app="appSayThreeNiceThings">
+      <div ng-controller="controllerSayThreeNiceThings">
+        <div class="alert alert-info">
+          <h1><span ng-click="(showMenu = !showMenu)" class="glyphicon glyphicon-menu-hamburger"></span>
+            Say Three Nice Things</h1>
         </div>
+        <div ng-show="showMenu" class="panel panel-default">
+          <div class="panel-body">
+            <table>
+              <tr>
+                <td>Noun</td>
+                <td class="width100"><span class="form-control nounInput input-md">&nbsp;</span></td>
+                <td>&nbsp;&nbsp;A word that represents a person, place, thing, or idea.</td>
+              </tr>
+              <tr>
+                <td>Person</td>
+                <td>
+                  <div class="btn btn-default btn-sm margin5px"><span style="font-size: x-large !important;" class="glyphicon glyphicon-user"></span></div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Place</td>
+                <td>
+                  <div class="btn btn-default btn-sm margin5px"><span style="font-size: x-large !important;" class="glyphicon glyphicon-globe"></span></div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Thing</td>
+                <td>
+                  <div class="btn btn-default btn-sm margin5px"><span style="font-size: x-large !important;" class="glyphicon glyphicon-sunglasses"></span></div>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div ng-show="!showMenu" class="panel panel-default">
+          <div class="panel-body">
+            <div class="simple-form">
+              <input class="form-control nounInput input-md" ng-model="inputNoun" ng-enter="showPhrase(lastE)" />
+              <a id="btn0" ng-click="showPhrase('0')" href="#" class="btn btn-default btn-sm margin5px"><span style="font-size: x-large !important;" class="glyphicon glyphicon-user"></span></a>
+              <a id="btn1" ng-click="showPhrase('1')" href="#" class="btn btn-default btn-sm margin5px"><span style="font-size: x-large !important;" class="glyphicon glyphicon-globe"></span></a>
+              <a id="btn2" ng-click="showPhrase('2')" href="#" class="btn btn-default btn-sm margin5px"><span style="font-size: x-large !important;" class="glyphicon glyphicon-sunglasses"></span></a>
+            </div>
+          </div>
+          <div ng-show="(phrase1.toString().length > 0 ? true : false)" class="panel-body">
+            <blockquote>
+              <div ng-bind-html="phrase1"></div>
+            </blockquote>
+            <blockquote>
+              <div ng-bind-html="phrase2"></div>
+            </blockquote>
+            <blockquote>
+              <div ng-bind-html="phrase3"></div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </body>
 <script>
   var myApp = angular.module('appSayThreeNiceThings', []);
-  myApp.controller('controllerSayThreeNiceThings', ['$scope', '$sce', '$http', function ($scope, $sce, $http) {
-
-    $scope.showMenu = function () {
-      $scope.showMenuFlag = !$scope.showMenuFlag;
-
+  myApp.controller('controllerSayThreeNiceThings',
+    ['$scope', '$sce', '$http', function ($scope, $sce, $http) {
+      $scope.data = $scope.data = [{ 'TYPE': 'A', 'LIST': ["{0} is astounding", "{0} is bedazzling", "{0} is brilliant", "{0} is breathtaking", "{0} is classy", "{0} is compelling", "{0} is dazzling", "{0} is eclipsing", "{0} is elite", "{0} is enriching", "{0} is epic", "{0} is flawless", "{0} is first-rate", "{0} is gripping", "{0} is ground-breaking", "{0} is gut-wrenching", "{0} is headline-worthy", "{0} is iconic", "{0} is impeccable", "{0} is insightful", "{0} is inspired", "{0} is laudable", "{0} is legendary", "{0} is luminous", "{0} is masterful", "{0} is notable", "{0} is pioneering", "{0} is pitch-perfect", "{0} is pivotal", "{0} is prime", "{0} is provocative", "{0} is refined", "{0} is rich", "{0} is riveting", "{0} is sensational", "{0} is stellar", "{0} is to die for", "{0} is trailblazing", "{0} is thought-provoking", "{0} is touching", "{0} is transcendent", "{0} is unforgettable", "{0} is vibrant", "{0} is world class", "Astounding {0} is ", "Bedazzling {0} is ", "Brilliant {0} is ", "Breathtaking {0} is ", "Classy {0} is ", "Compelling {0} is ", "Dazzling {0} is ", "Eclipsing {0} is ", "Elite {0} is ", "Enriching {0} is ", "Epic {0} is ", "Flawless {0} is ", "First-Rate {0} is ", "Gripping {0} is ", "Ground-Breaking {0} is ", "Gut-Wrenching {0} is ", "Headline-Worthy {0} is ", "Iconic {0} is ", "Impeccable {0} is ", "Insightful {0} is ", "Inspired {0} is ", "Laudable {0} is ", "Legendary {0} is ", "Luminous {0} is ", "Masterful {0} is ", "Notable {0} is ", "Pioneering {0} is ", "Pitch-Perfect {0} is ", "Pivotal {0} is ", "Prime {0} is ", "Provocative {0} is ", "Refined {0} is ", "Rich {0} is ", "Riveting {0} is ", "Sensational {0} is ", "Stellar {0} is ", "To Die For {0} is ", "Trailblazing {0} is ", "Thought-Provoking {0} is ", "Touching {0} is ", "Transcendent {0} is ", "Unforgettable {0} is ", "Vibrant {0} is ", "World Class {0} is"] },{ 'TYPE': 'B', 'LIST': ["{0} is astounding", "{0} is bedazzling", "{0} is brilliant", "{0} is breathtaking", "{0} is classy", "{0} is compelling", "{0} is dazzling", "{0} is eclipsing", "{0} is elite", "{0} is enriching", "{0} is epic", "{0} is flawless", "{0} is first-rate", "{0} is gripping", "{0} is ground-breaking", "{0} is gut-wrenching", "{0} is headline-worthy", "{0} is iconic", "{0} is impeccable", "{0} is insightful", "{0} is inspired", "{0} is laudable", "{0} is legendary", "{0} is luminous", "{0} is masterful", "{0} is notable", "{0} is pioneering", "{0} is pitch-perfect", "{0} is pivotal", "{0} is prime", "{0} is provocative", "{0} is refined", "{0} is rich", "{0} is riveting", "{0} is sensational", "{0} is stellar", "{0} is to die for", "{0} is trailblazing", "{0} is thought-provoking", "{0} is touching", "{0} is transcendent", "{0} is unforgettable", "{0} is vibrant", "{0} is world class", "Astounding {0} is ", "Bedazzling {0} is ", "Brilliant {0} is ", "Breathtaking {0} is ", "Classy {0} is ", "Compelling {0} is ", "Dazzling {0} is ", "Eclipsing {0} is ", "Elite {0} is ", "Enriching {0} is ", "Epic {0} is ", "Flawless {0} is ", "First-Rate {0} is ", "Gripping {0} is ", "Ground-Breaking {0} is ", "Gut-Wrenching {0} is ", "Headline-Worthy {0} is ", "Iconic {0} is ", "Impeccable {0} is ", "Insightful {0} is ", "Inspired {0} is ", "Laudable {0} is ", "Legendary {0} is ", "Luminous {0} is ", "Masterful {0} is ", "Notable {0} is ", "Pioneering {0} is ", "Pitch-Perfect {0} is ", "Pivotal {0} is ", "Prime {0} is ", "Provocative {0} is ", "Refined {0} is ", "Rich {0} is ", "Riveting {0} is ", "Sensational {0} is ", "Stellar {0} is ", "To Die For {0} is ", "Trailblazing {0} is ", "Thought-Provoking {0} is ", "Touching {0} is ", "Transcendent {0} is ", "Unforgettable {0} is ", "Vibrant {0} is ", "World Class {0} is"] },{ 'TYPE': 'C', 'LIST': ["{0} is astounding", "{0} is bedazzling", "{0} is brilliant", "{0} is breathtaking", "{0} is classy", "{0} is compelling", "{0} is dazzling", "{0} is eclipsing", "{0} is elite", "{0} is enriching", "{0} is epic", "{0} is flawless", "{0} is first-rate", "{0} is gripping", "{0} is ground-breaking", "{0} is gut-wrenching", "{0} is headline-worthy", "{0} is iconic", "{0} is impeccable", "{0} is insightful", "{0} is inspired", "{0} is laudable", "{0} is legendary", "{0} is luminous", "{0} is masterful", "{0} is notable", "{0} is pioneering", "{0} is pitch-perfect", "{0} is pivotal", "{0} is prime", "{0} is provocative", "{0} is refined", "{0} is rich", "{0} is riveting", "{0} is sensational", "{0} is stellar", "{0} is to die for", "{0} is trailblazing", "{0} is thought-provoking", "{0} is touching", "{0} is transcendent", "{0} is unforgettable", "{0} is vibrant", "{0} is world class", "Astounding {0} is ", "Bedazzling {0} is ", "Brilliant {0} is ", "Breathtaking {0} is ", "Classy {0} is ", "Compelling {0} is ", "Dazzling {0} is ", "Eclipsing {0} is ", "Elite {0} is ", "Enriching {0} is ", "Epic {0} is ", "Flawless {0} is ", "First-Rate {0} is ", "Gripping {0} is ", "Ground-Breaking {0} is ", "Gut-Wrenching {0} is ", "Headline-Worthy {0} is ", "Iconic {0} is ", "Impeccable {0} is ", "Insightful {0} is ", "Inspired {0} is ", "Laudable {0} is ", "Legendary {0} is ", "Luminous {0} is ", "Masterful {0} is ", "Notable {0} is ", "Pioneering {0} is ", "Pitch-Perfect {0} is ", "Pivotal {0} is ", "Prime {0} is ", "Provocative {0} is ", "Refined {0} is ", "Rich {0} is ", "Riveting {0} is ", "Sensational {0} is ", "Stellar {0} is ", "To Die For {0} is ", "Trailblazing {0} is ", "Thought-Provoking {0} is ", "Touching {0} is ", "Transcendent {0} is ", "Unforgettable {0} is ", "Vibrant {0} is ", "World Class {0} is"] }];
+      $scope.showMenu = false;
+      $scope.phrase1 = ""; $scope.phrase2 = ""; $scope.phrase3 = "";
+      $scope.inputNoun = "nice"; $scope.subData = []; $scope.lastE = 0;
+      $scope.showPhrase = function (e) { if ($scope.subData.length < 2 || $scope.lastE != e) { $scope.subData = $scope.shuffle(jQuery.grep($scope.data, function (n, i) { return (i == e); })[0].LIST); } $scope.phrase1 = $sce.trustAsHtml($scope.subData[0].split("{0}").join("<span  style='color: #0094ff; font-weight: bold;'> {noun} </span>".split("{noun}").join($scope.inputNoun))); $scope.phrase2 = $sce.trustAsHtml($scope.subData[1].split("{0}").join("<span  style='color: #0094ff; font-weight: bold;'> {noun} </span>".split("{noun}").join($scope.inputNoun))); $scope.phrase3 = $sce.trustAsHtml($scope.subData[2].split("{0}").join("<span  style='color: #0094ff; font-weight: bold;'> {noun} </span>".split("{noun}").join($scope.inputNoun))); $scope.subData = jQuery.grep($scope.subData, function (n, i) { return (i > 2); }); $scope.lastE = e; $("[id*='btn']").removeClass("btn-info").addClass("btn-default"); $("[id*='btn" + e + "']").removeClass("btn-default").addClass("btn-info"); };
+      $scope.shuffle = function (a) { for (var b = a.length, d, c; 0 !== b;) c = Math.floor(Math.random() * b), --b, d = a[b], a[b] = a[c], a[c] = d; return a };
+      $scope.showPhrase($scope.lastE);
     }
-    $scope.phraseGroup = [];
-    $scope.showMenuFlag = false;
-    $scope.phrase1 = "";
-    $scope.phrase2 = "";
-    $scope.phrase3 = "";
-    $scope.phraseGroupName = "Generic";
-    $scope.getRandomNumberIndexsUsed = [];
-    $scope.phraseData = [];
-    $scope.getRandomNumber = function () { if ($scope.getRandomNumberIndexsUsed.length > $scope.phraseData.length - 3) { $scope.getRandomNumberIndexsUsed = []; } for (var j = 0; j < 100; j++) { var i = Math.floor((Math.random() * ($scope.phraseData.length))); if ($scope.getRandomNumberIndexsUsed.indexOf(i) == -1) { $scope.getRandomNumberIndexsUsed.push(i); return i; } } return 0; };
-
-    $scope.downLoadData = function (e) {
-      $('#DownLoadingSpan').show();
-      $('#Div1').hide();
-      if (e == "0" && localStorage.getItem('STNTDATA') !== null) {
-        $scope.phraseGroup = $.parseJSON(localStorage.getItem('STNTDATA'));
-        $scope.showMenuFlag = false;
-        $('#DownLoadingSpan').hide();
-        $('#Div1').show();
-
-      }
-      else {
-        $http({ url: "http://zandersage.com/saythreenicethingsservice.aspx", method: "GET", params: { id: e } }).success(function (response) {
-          if (response === undefined || response.length === 0) { alert('Data Download Failed'); $scope.showMenuFlag = false; }
-          else {
-            localStorage.removeItem('STNTDATA');
-            localStorage.setItem('STNTDATA', JSON.stringify(response));
-            $scope.phraseGroup = $.parseJSON(localStorage.getItem('STNTDATA'));
-            $scope.showMenuFlag = false;
-            $('#DownLoadingSpan').hide();
-            $('#Div1').show();
-          }
-        }).error(function () {
-          alert('Data Download Failed');
-          $scope.showMenuFlag = false;
-          $('#DownLoadingSpan').hide();
-          $('#Div1').show();
-
-        });
-      }
-      if ($scope.phrase1 == "" || $("#nounInput").val() == "") {
-        $("#panelPhrases").hide();
-        $('#DownLoadingSpan').hide();
-        $('#Div1').show();
-      }
-
-
-    };
-
-
-
-
-
-
-    $scope.getPhraseTemplate = function (e) {
-      $scope.phraseGroupName = e;
-      $("[id*='btn']").removeClass("btn-info").addClass("btn-default");
-
-      $("#btn" + $scope.phraseGroupName).addClass("btn-info");
-      $scope.phraseData = $.grep($scope.phraseGroup, function (n, i) { return (n.PhraseName == e); });
-      if ($scope.phraseData.length == 0 || $("#nounInput").val() == "") { $("#panelPhrases").hide(); return; }
-      $scope.phraseData = $scope.phraseData[0].Phrase;
-      $scope.phrase1 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
-      $scope.phrase2 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
-      $scope.phrase3 = $sce.trustAsHtml($scope.phraseData[$scope.getRandomNumber()].replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>").replace("{0}", "<span class='nounImput'>" + $("#nounInput").val() + "</span>"));
-      $("#panelPhrases").show();
-      $("#btn" + $scope.phraseGroupName).focus();
-    };
-
-    $scope.downLoadData("0");
-
-  }
-  ]);
+    ]);
   myApp.directive('ngEnter', function () { return function (scope, element, attrs) { element.bind("keydown keypress", function (event) { if (event.which === 13) { scope.$apply(function () { scope.$eval(attrs.ngEnter); }); event.preventDefault(); } }); }; });
 
 </script>
