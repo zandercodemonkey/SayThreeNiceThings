@@ -62,6 +62,7 @@
         </div>
       </div>
     </div>
+    <div style="text-align:center;"><h6>zandercodemonkey@gmail.com</h6></div>
   </div>
 </body>
 <script>
@@ -73,6 +74,7 @@
       $scope.phrase1 = ""; $scope.phrase2 = ""; $scope.phrase3 = "";
       $scope.inputNoun = ""; $scope.subData = []; $scope.lastE = 0;
       $scope.showPhrase = function (e) {
+        $("#A1").focus();
         if ($.trim($scope.inputNoun).length == 0) {
           $("#PhrasePanel").hide();
           return;
@@ -82,6 +84,25 @@
     }
     ]);
   myApp.directive('ngEnter', function () { return function (scope, element, attrs) { element.bind("keydown keypress", function (event) { if (event.which === 13) { scope.$apply(function () { scope.$eval(attrs.ngEnter); }); event.preventDefault(); } }); }; });
+  $(function () {
+    var isDragging = false;
+    $("#PhrasePanel")
+    .mousedown(function () {
+      isDragging = false;
+    })
+    .mousemove(function () {
+      isDragging = true;
+      
+    })
+    .mouseup(function () {
+      var wasDragging = isDragging;
+      isDragging = false;
+      if (!wasDragging) {
+        $("#A1").click();
+      }
+    });
 
+
+  });
 </script>
 </html>
