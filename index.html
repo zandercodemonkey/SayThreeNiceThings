@@ -18,7 +18,8 @@
 
     input[type=text], textarea { -webkit-transition: all 0.30s ease-in-out; -moz-transition: all 0.30s ease-in-out; -ms-transition: all 0.30s ease-in-out; -o-transition: all 0.30s ease-in-out; outline: none; padding: 3px 0px 3px 3px; margin: 5px 1px 3px 0px; border: 1px solid #DDDDDD; border-radius: 5px; color: #0094ff; font-weight: normal; font-size: 1.05em; text-indent: 10px; }
 
-      input[type=text]:focus, textarea:focus { box-shadow: 0 0 5px rgba(81, 203, 238, 1); padding: 3px 0px 3px 3px; margin: 5px 1px 3px 0px; border: 1px solid rgba(81, 203, 238, 1); }
+      input[type=text]:focus, textarea:focus { box-shadow: 0 0 5px rgba(81, 203, 238, 1); padding: 3px 0px 3px 3px; margin: 5px 0px 0px 0px; border: 1px solid rgba(81, 203, 238, 1); }
+    #A1:focus { border-style:none !important; }
   </style>
 </head>
 <body>
@@ -36,7 +37,7 @@
 
               <input type="text" class="form-control" id="Text1" aria-describedby="inputGroupSuccess1Status" ng-model="inputNoun" ng-enter="showPhrase(lastE)" />
               <span class="input-group-btn">
-                <button id="A1" ng-click="showPhrase('0')" href="#" class="btn btn-info">
+                <button id="A1" ng-click="showPhrase('0')" href="#" class="btn btn-info" style="margin-top:5px !important;">
                   <span class="glyphicon glyphicon-comment"></span></button>
               </span>
 
